@@ -1,11 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace AddressValidator.Models
+﻿namespace AddressValidator.Models
 {
-    public class AddressFormatUSA
+    public class AddressUSA : IAddress
     {
-        [JsonPropertyName("Country")]
-        public required string CountryCode { get; set; }
         public string? StreetName { get; set; }
         public string? StreetNumber { get; set; }
         public string? Apartment { get; set; }
