@@ -1,7 +1,7 @@
-﻿using AddressValidator.Models;
+﻿using AddressValidation.Models;
 using Newtonsoft.Json.Linq;
 
-namespace AddressValidator.Services
+namespace AddressValidation.Services
 {
     public class ValidateAddressService(IAddressFactory addressFactory)
     {

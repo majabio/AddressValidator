@@ -1,4 +1,4 @@
-﻿namespace AddressValidator.Models
+﻿namespace AddressValidation.Models
 {
     public enum CountryCode
     {

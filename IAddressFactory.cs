@@ -1,6 +1,6 @@
-﻿using AddressValidator.Models;
+﻿using AddressValidation.Models;
 
-namespace AddressValidator
+namespace AddressValidation
 {
     public interface IAddressFactory
     {

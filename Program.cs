@@ -1,5 +1,6 @@
-using AddressValidator;
-using AddressValidator.Services;
+using AddressValidation;
+using AddressValidation.Services;
+using AddressValidation.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<ValidateAddressService>();
 builder.Services.AddSingleton<IAddressFactory, AddressFactory>();
+builder.Services.AddSingleton<IAddressValidator, AddressValidator>();
 builder.Services.AddControllers();
 
 var app = builder.Build();

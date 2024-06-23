@@ -1,7 +1,7 @@
-﻿using AddressValidator.Services;
+﻿using AddressValidation.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AddressValidator.Controllers
+namespace AddressValidation.Controllers
 {
     [Route("[controller]")]
     [ApiController]
