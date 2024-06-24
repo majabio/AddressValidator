@@ -1,11 +1,13 @@
 ﻿using AddressValidation.Models;
+using AddressValidation.Validation;
 using Newtonsoft.Json.Linq;
 
 namespace AddressValidation.Services
 {
-    public class ValidateAddressService(IAddressFactory addressFactory)
+    public class ValidateAddressService(IAddressFactory addressFactory, IAddressValidator validator)
     {
         private readonly IAddressFactory _addressFactory = addressFactory;
+        private readonly IAddressValidator _validator = validator;
 
         public bool Validate(string inputAddress)
         {
@@ -20,11 +22,10 @@ namespace AddressValidation.Services
             try
             {
                 var address = _addressFactory.Create(countryCode.ToObject<CountryCode>(), inputAddress);
-                return true;
+                return address.Validate(validator);
             }
-            catch (ArgumentOutOfRangeException)
+            catch (Exception)
             {
-                //TODO:log error
                 return false;
             }
         }

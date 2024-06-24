@@ -1,4 +1,5 @@
 ﻿using AddressValidation.Models;
+using System.Text.Json;
 
 namespace AddressValidation
 {
@@ -9,12 +10,24 @@ namespace AddressValidation
             switch (countryCode)
             {
                 case CountryCode.NL:
-                    return new AddressNetherlands();
+                    return Deserialize<AddressNetherlands>(address);
                 case CountryCode.US:
-                    return new AddressUSA();
+                    return Deserialize<AddressUSA>(address);
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new Exception();
             }
+        }
+
+        private static IAddress Deserialize<T>(string address)
+        {
+            try
+            {
+                return JsonSerializer.Deserialize<T>(address) as IAddress;
+            }
+            catch(Exception)
+            {
+                throw new Exception();
+            }        
         }
     }
 }
