@@ -7,8 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddSingleton<ValidateAddressService>();
+builder.Services.AddSingleton<GetAddressSchemaService>();
 builder.Services.AddSingleton<IAddressFactory, AddressFactory>();
 builder.Services.AddSingleton<IAddressValidator, AddressValidator>();
+builder.Services.AddSingleton<JsonSchemaGenerator>();
 builder.Services.AddControllers();
 
 var app = builder.Build();

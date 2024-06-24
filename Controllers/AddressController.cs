@@ -1,24 +1,43 @@
-﻿using AddressValidation.Services;
+﻿using AddressValidation.Models;
+using AddressValidation.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AddressValidation.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AddressController : Controller
+    public class AddressController(ValidateAddressService validateAddressService, GetAddressSchemaService getAddressSchemaService) : Controller
     {
-        private readonly ValidateAddressService _validateAddressService;
-        public AddressController(ValidateAddressService validateAddressService)
-        {
-            _validateAddressService = validateAddressService;
-        }
+        private readonly ValidateAddressService _validateAddressService = validateAddressService;
+        private readonly GetAddressSchemaService _addressSchemaService = getAddressSchemaService;
 
         [Route("Validate")]
         [HttpPost]
-        public bool Validate([FromBody] string address)
+        public IActionResult Validate([FromBody]string address)
         {
-            return _validateAddressService.Validate(address);
+            var isValid = _validateAddressService.Validate(address);
+
+            if (!isValid)
+            {
+                return BadRequest("Invalid address");
+            }
+
+            return Ok("Success");
         }
 
+        [Route("{countryCode}")]
+        [HttpGet]
+        public IActionResult Get([FromRoute]CountryCode countryCode)
+        {
+            try
+            {
+                var schema = _addressSchemaService.GetSchema(countryCode);
+                return Ok(schema.ToString());
+            }
+            catch (Exception) 
+            {
+                return BadRequest();
+            }
+        }
     }
 }

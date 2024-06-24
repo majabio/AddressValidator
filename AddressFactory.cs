@@ -7,15 +7,12 @@ namespace AddressValidation
     {
         public IAddress Create(CountryCode countryCode, string address)
         {
-            switch (countryCode)
+            return countryCode switch
             {
-                case CountryCode.NL:
-                    return Deserialize<AddressNetherlands>(address);
-                case CountryCode.US:
-                    return Deserialize<AddressUSA>(address);
-                default:
-                    throw new Exception();
-            }
+                CountryCode.NL => Deserialize<AddressNetherlands>(address),
+                CountryCode.US => Deserialize<AddressUSA>(address),
+                _ => throw new Exception(),
+            };
         }
 
         private static IAddress Deserialize<T>(string address)

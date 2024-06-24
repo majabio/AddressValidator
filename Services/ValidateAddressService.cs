@@ -22,7 +22,7 @@ namespace AddressValidation.Services
             try
             {
                 var address = _addressFactory.Create(countryCode.ToObject<CountryCode>(), inputAddress);
-                return address.Validate(validator);
+                return address.Validate(_validator);
             }
             catch (Exception)
             {
