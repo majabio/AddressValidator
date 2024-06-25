@@ -1,6 +1,7 @@
 using AddressValidation;
 using AddressValidation.Services;
 using AddressValidation.Validation;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,10 @@ builder.Services.AddSingleton<GetAddressSchemaService>();
 builder.Services.AddSingleton<IAddressFactory, AddressFactory>();
 builder.Services.AddSingleton<IAddressValidator, AddressValidator>();
 builder.Services.AddSingleton<JsonSchemaGenerator>();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -22,5 +26,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
