@@ -4,19 +4,19 @@ using Newtonsoft.Json.Schema.Generation;
 
 namespace AddressValidation
 {
-    public class JsonSchemaGenerator
+    public class JsonSchemaFactory
     {
-        public JSchema Generate(CountryCode countryCode)
+        public JSchema Create(CountryCode countryCode)
         {
             return countryCode switch
             {
-                CountryCode.NL => Generate<AddressNetherlands>(),
-                CountryCode.US => Generate<AddressUSA>(),
-                _ => throw new Exception(),
+                CountryCode.NL => Create<AddressNetherlands>(),
+                CountryCode.US => Create<AddressUSA>(),
+                _ => throw new Exception("Not supported country code"),
             };
         }
 
-        private static JSchema Generate<T>()
+        private static JSchema Create<T>()
         {
             JSchemaGenerator generator = new();
             return generator.Generate(typeof(T));

@@ -5,19 +5,21 @@ namespace AddressValidation.Validation
 {
     public class AddressValidator : IAddressValidator
     {
-        public bool Validate(AddressNetherlands address)
+        public void Validate(AddressNetherlands address)
         {
-            var regex = new Regex("^[0-9]{4}[A-Z]{2}$");
+            var zipCodeRegex = new Regex("^[0-9]{4}[A-Z]{2}$");
 
-            if (!regex.IsMatch(address.Zipcode))
-                return false;
+            if (!zipCodeRegex.IsMatch(address.Zipcode))
+            {
+                throw new Exception("Invalid zip code");
+            }
 
-            return true;
+            return;
         }
 
-        public bool Validate(AddressUSA address)
+        public void Validate(AddressUSA address)
         {
-            return true;
+            return;
         }
     }
 }

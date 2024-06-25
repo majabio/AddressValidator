@@ -11,7 +11,7 @@ builder.Services.AddSingleton<ValidateAddressService>();
 builder.Services.AddSingleton<GetAddressSchemaService>();
 builder.Services.AddSingleton<IAddressFactory, AddressFactory>();
 builder.Services.AddSingleton<IAddressValidator, AddressValidator>();
-builder.Services.AddSingleton<JsonSchemaGenerator>();
+builder.Services.AddSingleton<JsonSchemaFactory>();
 builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 builder.Services.AddEndpointsApiExplorer();

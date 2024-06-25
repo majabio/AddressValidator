@@ -11,7 +11,7 @@ namespace AddressValidation
             {
                 CountryCode.NL => Deserialize<AddressNetherlands>(address),
                 CountryCode.US => Deserialize<AddressUSA>(address),
-                _ => throw new Exception(),
+                _ => throw new Exception("Not supported country code"),
             };
         }
 
@@ -23,7 +23,7 @@ namespace AddressValidation
             }
             catch(Exception)
             {
-                throw new Exception();
+                throw new Exception("Invalid json input");
             }        
         }
     }

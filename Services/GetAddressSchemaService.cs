@@ -3,13 +3,13 @@ using Newtonsoft.Json.Schema;
 
 namespace AddressValidation.Services
 {
-    public class GetAddressSchemaService(JsonSchemaGenerator jsonSchemaGenerator)
+    public class GetAddressSchemaService(JsonSchemaFactory jsonSchemaFactory)
     {
-        private readonly JsonSchemaGenerator _jsonSchemaGenerator = jsonSchemaGenerator;
+        private readonly JsonSchemaFactory _jsonSchemaFactory = jsonSchemaFactory;
 
         public JSchema GetSchema(CountryCode countryCode)
         {
-            return _jsonSchemaGenerator.Generate(countryCode);
+            return _jsonSchemaFactory.Create(countryCode);
         }
     }
 }

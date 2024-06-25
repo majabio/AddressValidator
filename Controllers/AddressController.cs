@@ -15,11 +15,13 @@ namespace AddressValidation.Controllers
         [HttpPost]
         public IActionResult Validate([FromBody]string address)
         {
-            var isValid = _validateAddressService.Validate(address);
-
-            if (!isValid)
+            try
             {
-                return BadRequest("Invalid address");
+                _validateAddressService.Validate(address);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
             return Ok("Success");
@@ -34,9 +36,9 @@ namespace AddressValidation.Controllers
                 var schema = _addressSchemaService.GetSchema(countryCode);
                 return Ok(schema.ToString());
             }
-            catch (Exception) 
+            catch (Exception ex) 
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
     }

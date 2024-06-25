@@ -4,6 +4,6 @@ namespace AddressValidation.Models
 {
     public interface IAddress
     {
-        public bool Validate(IAddressValidator addressValidator);
+        public void Validate(IAddressValidator addressValidator);
     }
 }

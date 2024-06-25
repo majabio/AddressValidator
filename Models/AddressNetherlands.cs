@@ -1,6 +1,5 @@
 ﻿using AddressValidation.Validation;
 using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 
 namespace AddressValidation.Models
 {
@@ -14,9 +13,9 @@ namespace AddressValidation.Models
         public required string Zipcode { get; set; }
         public required int HouseNumber { get; set; }
 
-        public bool Validate(IAddressValidator addressValidator)
+        public void Validate(IAddressValidator addressValidator)
         {
-            return addressValidator.Validate(this);
+            addressValidator.Validate(this);
         }
     }
 }

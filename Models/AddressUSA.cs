@@ -10,9 +10,9 @@ namespace AddressValidation.Models
         public string? City { get; set; }
         public string? ZipCode { get; set; }
 
-        public bool Validate(IAddressValidator addressValidator)
+        public void Validate(IAddressValidator addressValidator)
         {
-            return addressValidator.Validate(this);
+            addressValidator.Validate(this);
         }
     }
 }

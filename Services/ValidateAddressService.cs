@@ -9,25 +9,19 @@ namespace AddressValidation.Services
         private readonly IAddressFactory _addressFactory = addressFactory;
         private readonly IAddressValidator _validator = validator;
 
-        public bool Validate(string inputAddress)
+        public void Validate(string inputAddress)
         {
             JObject jsonAddress = JObject.Parse(inputAddress);
             var countryCode = jsonAddress["Country"];
 
             if (countryCode is null)
             {
-                return false;
+                throw new Exception("Missing country code");
             }
 
-            try
-            {
-                var address = _addressFactory.Create(countryCode.ToObject<CountryCode>(), inputAddress);
-                return address.Validate(_validator);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+
+            var address = _addressFactory.Create(countryCode.ToObject<CountryCode>(), inputAddress);
+            address.Validate(_validator);
         }
 
     }
